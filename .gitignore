@@ -1,0 +1,25 @@
+# Rust / Cargo
+target/
+
+# C build artifacts
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+Debug/
+Release/
+
+# IDE
+.idea/
+.vscode/
+*.wvproj.user
+.kernel
+.template
+.cproject
+.project
+
+# OS
+.DS_Store
+Thumbs.db
