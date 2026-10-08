@@ -31,8 +31,8 @@
 |---|------|---------|------|
 | 00 | 写在前面：方法论与定位 | — | ✅ 初稿 |
 | 01 | 环境搭建：工具链与下载器 | — | ✅ 初稿 |
-| 02 | 最小固件：从上电到 `main` | `steps/step-0-minimal` | 🧪 可编译，待上板验证 |
-| 03 | GPIO：点亮一颗 LED | `steps/step-1-blinky` | ⏳ |
+| 02 | 最小固件：从上电到 `main` | `steps/step-0-minimal` | 🧪 可编译（含 V3F 唤醒器）；待上板复验 PB1 方波 |
+| 03 | GPIO：点亮一颗 LED | `steps/step-1-blinky` | ✅ 双轨均已上板（双 LED 交替闪烁） |
 | 04 | SysTick 与精确延时 | `steps/step-2-systick` | ⏳ |
 | 05 | UART 与 `printf` / `log` | `steps/step-3-uart` | ⏳ |
 | 06 | 中断：PFIC 与向量表 | `steps/step-4-interrupt` | ⏳ |
@@ -43,6 +43,8 @@
 | 11 | Rust 生态专栏：bring-up 实录与回馈上游 | — | 📝 |
 
 状态图例：✅ 已完成　📝 写作中　🧪 可编译、待真机验证　⏳ 计划中
+
+详细里程碑、每章考据点与验收标准见 [ROADMAP.md](ROADMAP.md)。
 
 ## 目录结构
 
@@ -72,11 +74,11 @@ steps/                 # 每章示例工程，独立可构建
 git clone https://github.com/no010/ch32h417-bare-metal-guide.git
 cd ch32h417-bare-metal-guide
 
-# C 版
-make -C steps/step-0-minimal/c          # 产物: step0.elf / step0.bin
+# C 版（含 V3F 唤醒器；双核机器两个 bin 都要烧）
+make -C steps/step-0-minimal/c          # 产物: waker.bin / step0.elf / step0.bin
 
 # Rust 版
-cargo build --release                    # 产物: target/.../step0
+cd steps/step-0-minimal/rust && cargo build --release   # 产物: target/.../step0
 ```
 
 ## 诚实声明

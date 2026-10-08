@@ -12,7 +12,9 @@ jobs:
       - name: Install RISC-V GCC
         run: sudo apt-get update && sudo apt-get install -y gcc-riscv64-unknown-elf
       - name: Build C examples
-        run: make -C steps/step-0-minimal/c
+        run: |
+          make -C steps/step-0-minimal/c
+          make -C steps/step-1-blinky/c
 
   rust-examples:
     runs-on: ubuntu-latest
@@ -21,6 +23,10 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: riscv32imac-unknown-none-elf
-      - name: Build Rust examples
+      - name: Build step-0 (Rust)
         run: cargo build --release
         working-directory: steps/step-0-minimal/rust
+
+      - name: Build step-1 (Rust)
+        run: cargo build --release
+        working-directory: steps/step-1-blinky/rust

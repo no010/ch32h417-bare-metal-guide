@@ -1,6 +1,6 @@
 //! step-0-minimal (Rust) — 最小可运行固件，零第三方依赖。
 //!
-//! 状态: 🧪 可编译，寄存器用法待上板验证（PB1 与官方 GPIO_Toggle 例程同脚位）。
+//! 状态: 🧪 可编译，待上板复验 PB1 方波（寄存器偏移已按上板实测修正）。
 //! 地址来源: ch32-riscv-ug/ch32-device-data evidence/memory_map.csv（取自 WCH 设备头文件）。
 #![no_std]
 #![no_main]
@@ -41,8 +41,8 @@ _start:
     "
 );
 
-// TODO(verif): 偏移/位段按 F1 风格布局推测，上板时需对照 CH32H417RM 逐位核实
-const RCC_APB2PCENR: *mut u32 = 0x4002_1018 as *mut u32;
+// 寄存器偏移经 step-1 上板实测（2026-09-09）：RCC 使能 = HB2PCENR(0x1C)，GPIO 组 F1 风格
+const RCC_HB2PCENR: *mut u32 = 0x4002_101C as *mut u32;
 const RCC_IOPBEN: u32 = 1 << 3;
 const GPIOB_CFGLR: *mut u32 = 0x4001_0C00 as *mut u32;
 const GPIOB_OUTDR: *mut u32 = 0x4001_0C0C as *mut u32;
@@ -51,7 +51,7 @@ const PB1_OUT: u32 = 1 << 1;
 #[no_mangle]
 pub extern "C" fn main() -> ! {
     unsafe {
-        write_volatile(RCC_APB2PCENR, read_volatile(RCC_APB2PCENR) | RCC_IOPBEN);
+        write_volatile(RCC_HB2PCENR, read_volatile(RCC_HB2PCENR) | RCC_IOPBEN);
 
         let cfglr = read_volatile(GPIOB_CFGLR);
         write_volatile(GPIOB_CFGLR, (cfglr & !(0xF << 4)) | (0x3 << 4));
