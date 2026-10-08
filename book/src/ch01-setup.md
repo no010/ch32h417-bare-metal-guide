@@ -52,7 +52,7 @@ CH32H417 的调试口走沁恒私有的 2 线 SDI 协议（引脚 PB9=SWDIO、PB
 | [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) | Win | 官方 GUI，功能全；LinkE 固件偏旧时先用它升级（新芯片需要较新固件） |
 | [wlink](https://github.com/ch32-rs/wlink) | Win/Linux/macOS | Rust 编写的 CLI，`wlink flash step0.bin` 一条命令 |
 
-调试（断点 / 单步）：C、Rust 两条轨道统一用 MounRiver Studio 自带的 OpenOCD（`adapter driver wlinke` + `transport select sdi`，双核配置可参考 Zephyr 上游 ch32h417evt 板的 openocd.cfg）+ GDB。[probe-rs](https://probe.rs/) 上游已收录 CH32H4 目标定义与 flash 算法，但实测 v0.32.0 对 WCH-LinkE（固件 v2.18）attach 失败，暂不能作为依赖。
+调试（halt / 读寄存器 / resume）：C、Rust 两条轨道统一用 MounRiver Studio 自带的 OpenOCD（`adapter driver wlinke` + `transport select sdi`，双核配置可参考 Zephyr 上游 ch32h417evt 板的 openocd.cfg）+ GDB。注意：这套 OpenOCD 的 `step` 单步实测不可用——会把 PC 写飞，用 `wlink reset` 可复活（见第 02 章验证实录）。[probe-rs](https://probe.rs/) 上游已收录 CH32H4 目标定义与 flash 算法，但实测 v0.32.0 对 WCH-LinkE（固件 v2.18）attach 失败，暂不能作为依赖。
 
 ## 上电与连接排障
 
@@ -70,7 +70,7 @@ EVT 板若由 WCH-LinkE 的电源引脚供电（未接板载 USB），注意两�
   wlink set-power disable3v3 && wlink set-power enable3v3
   ```
 
-调试时遵守一条规则：**halt / 单步都在同一个 OpenOCD 会话内完成**（gdb 常驻连接 3333/3334 端口），退出前 resume；不要让芯片带着 halt 状态跨会话。
+调试时遵守一条规则：**halt 与寄存器操作都在同一个 OpenOCD 会话内完成**（gdb 常驻连接 3333/3334 端口），退出前 resume；不要让芯片带着 halt 状态跨会话。另：`wlink status` 这类查询也会把芯片留在 halt 状态，查询后补一次 `wlink reset`。
 
 ## 串口终端
 

@@ -1,6 +1,6 @@
 //! step-0-minimal (Rust) — 最小可运行固件，零第三方依赖。
 //!
-//! 状态: 🧪 可编译，待上板复验 PB1 方波（寄存器偏移已按上板实测修正）。
+//! 状态: ✅ 已上板验证（2026-09-29；PB1 翻转经调试器读寄存器复核，实录见 README）。
 //! 地址来源: ch32-riscv-ug/ch32-device-data evidence/memory_map.csv（取自 WCH 设备头文件）。
 #![no_std]
 #![no_main]

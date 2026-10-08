@@ -1,6 +1,6 @@
 /*
  * step-0-minimal (C) — main.c
- * 状态: 🧪 可编译，待上板复验 PB1 方波（PB1 与官方 GPIO_Toggle 例程同脚位）
+ * 状态: ✅ 已上板验证（2026-09-29；PB1 翻转经调试器读寄存器复核，实录见 README）
  * 地址来源: ch32-riscv-ug/ch32-device-data evidence/memory_map.csv（取自 WCH 设备头文件）
  * 寄存器: RCC 使能 = HB2PCENR(RCC+0x1C)——F1 风格 APB2 使能在 H417 搬了家，
  *         0x18 是 HBPCENR；GPIO 寄存器组保持 F1 风格（均经 step-1 上板实测）

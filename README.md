@@ -31,8 +31,8 @@
 |---|------|---------|------|
 | 00 | 写在前面：方法论与定位 | — | ✅ 初稿 |
 | 01 | 环境搭建：工具链与下载器 | — | ✅ 初稿 |
-| 02 | 最小固件：从上电到 `main` | `steps/step-0-minimal` | 🧪 可编译（含 V3F 唤醒器）；待上板复验 PB1 方波 |
-| 03 | GPIO：点亮一颗 LED | `steps/step-1-blinky` | ✅ 双轨均已上板（双 LED 交替闪烁） |
+| 02 | 最小固件：从上电到 `main` | `steps/step-0-minimal` | ✅ 已上板（PB1 翻转，调试器读寄存器复核）；正文初稿 |
+| 03 | GPIO：点亮一颗 LED | `steps/step-1-blinky` | ✅ 双轨已上板；正文初稿 |
 | 04 | SysTick 与精确延时 | `steps/step-2-systick` | ⏳ |
 | 05 | UART 与 `printf` / `log` | `steps/step-3-uart` | ⏳ |
 | 06 | 中断：PFIC 与向量表 | `steps/step-4-interrupt` | ⏳ |
