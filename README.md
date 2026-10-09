@@ -33,7 +33,7 @@
 | 01 | 环境搭建：工具链与下载器 | — | ✅ 初稿 |
 | 02 | 最小固件：从上电到 `main` | `steps/step-0-minimal` | ✅ 已上板（PB1 翻转，调试器读寄存器复核）；正文初稿 |
 | 03 | GPIO：点亮一颗 LED | `steps/step-1-blinky` | ✅ 双轨已上板；正文初稿 |
-| 04 | SysTick 与精确延时 | `steps/step-2-systick` | ⏳ |
+| 04 | SysTick 与精确延时 | `steps/step-2-systick` | ✅ 双轨已上板（1ms 节拍、LED 每秒交替）；正文初稿 |
 | 05 | UART 与 `printf` / `log` | `steps/step-3-uart` | ⏳ |
 | 06 | 中断：PFIC 与向量表 | `steps/step-4-interrupt` | ⏳ |
 | 07 | 时钟树：HSE、双 PLL 与分频 | `steps/step-5-clock` | ⏳ |

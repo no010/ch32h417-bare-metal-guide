@@ -15,6 +15,7 @@ jobs:
         run: |
           make -C steps/step-0-minimal/c
           make -C steps/step-1-blinky/c
+          make -C steps/step-2-systick/c
 
   rust-examples:
     runs-on: ubuntu-latest
@@ -30,3 +31,7 @@ jobs:
       - name: Build step-1 (Rust)
         run: cargo build --release
         working-directory: steps/step-1-blinky/rust
+
+      - name: Build step-2 (Rust)
+        run: cargo build --release
+        working-directory: steps/step-2-systick/rust
